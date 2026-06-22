@@ -85,14 +85,17 @@ export default function PatientDashboard() {
   const activePrescriptions = prescriptions.filter(p => p.status !== 'Cancelled').slice(0, 3);
 
   const pendingBills = 0; // placeholder; billing page will handle actual computation
-  const totalRecords = profile?.medicalHistory?.length || 0;
+  const totalRecords = (profile?.medicalHistory?.surgeries?.length || 0) +
+    (profile?.medicalHistory?.allergies?.length || 0) +
+    (profile?.medicalHistory?.currentMedications?.length || 0) +
+    (profile?.medicalHistory?.previousDiseases?.length || 0);
 
-  const displayName = profile?.user?.name || user?.name || 'Patient';
+  const displayName = profile?.name || user?.name || 'Patient';
   const patientId = profile?.patientId || '—';
   const bloodGroup = profile?.bloodGroup || '—';
-  const insurance = profile?.insuranceProvider || '—';
-  const allergies = profile?.allergies || [];
-  const currentMeds = profile?.currentMedications || [];
+  const insurance = profile?.insurance?.provider || '—';
+  const allergies = profile?.medicalHistory?.allergies || [];
+  const currentMeds = profile?.medicalHistory?.currentMedications || [];
 
   return (
     <DashboardLayout title="Patient Dashboard" subtitle="Your personal health overview">
@@ -301,7 +304,7 @@ export default function PatientDashboard() {
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                     {currentMeds.map((med, i) => (
                       <div key={i} style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: 6 }}>
-                        <span style={{ color: 'var(--accent)' }}>•</span> {med}
+                        <span style={{ color: 'var(--accent)' }}>•</span> {med.name} ({med.dosage})
                       </div>
                     ))}
                   </div>

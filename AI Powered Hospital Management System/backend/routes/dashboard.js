@@ -64,10 +64,27 @@ router.get('/stats', protect, authorize('super_admin', 'hospital_admin'), async 
           pendingLabTests,
           lowStockMedicines
         },
+        totalPatients,
+        todayAppointments,
+        monthRevenue: monthRevenue[0]?.total || 0,
+        monthlyRevenue: monthRevenue[0]?.total || 0,
+        totalDoctors,
+        bedOccupancy: totalRooms > 0 ? Math.round((occupiedRooms / totalRooms) * 100) : 0,
+        occupancyRate: totalRooms > 0 ? Math.round((occupiedRooms / totalRooms) * 100) : 0,
+        occupiedBeds: occupiedRooms,
+        bedsOccupied: occupiedRooms,
+        totalBeds: totalRooms,
+        pendingLabTests,
+        lowStockMedicines,
+        lowStock: lowStockMedicines,
         revenueTrend,
         deptStats,
         patientTrend,
-        recentAppointments
+        recentAppointments,
+        patients: totalPatients,
+        appointments: todayAppointments,
+        revenue: monthRevenue[0]?.total || 0,
+        totalRevenue: monthRevenue[0]?.total || 0
       }
     });
   } catch (e) { res.status(500).json({ success: false, message: e.message }); }

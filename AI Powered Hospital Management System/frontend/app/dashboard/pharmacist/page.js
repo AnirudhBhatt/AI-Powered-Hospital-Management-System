@@ -106,10 +106,10 @@ export default function PharmacistDashboardPage() {
                   }}>
                     <div>
                       <div style={{ fontWeight: '600', fontSize: '0.875rem' }}>
-                        {p.patientId?.user?.name || 'N/A'}
+                        {p.patientId?.name || 'N/A'}
                       </div>
                       <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '2px' }}>
-                        Dr. {p.doctorId?.user?.name || 'N/A'} · {p.medicines?.length || 0} medicine(s)
+                        Dr. {p.doctorId?.name || 'N/A'} · {p.medicines?.length || 0} medicine(s)
                       </div>
                       <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
                         {p.createdAt ? new Date(p.createdAt).toLocaleDateString('en-IN') : '—'}

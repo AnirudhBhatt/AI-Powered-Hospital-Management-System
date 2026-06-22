@@ -74,14 +74,14 @@ export default function DoctorDashboard() {
             <div className="stat-card">
               <div className="stat-icon" style={{ background: 'rgba(99,102,241,0.15)' }}>📅</div>
               <div>
-                <div className="stat-value">{stats?.stats?.todayAppointments ?? todayAppts.length}</div>
+                <div className="stat-value">{todayAppts.length}</div>
                 <div className="stat-label">Today's Appointments</div>
               </div>
             </div>
             <div className="stat-card">
               <div className="stat-icon" style={{ background: 'rgba(14,165,233,0.15)' }}>👥</div>
               <div>
-                <div className="stat-value">{stats?.stats?.totalPatients ?? 0}</div>
+                <div className="stat-value">{stats?.totalUniquePatients ?? 0}</div>
                 <div className="stat-label">Total Patients</div>
               </div>
             </div>
@@ -89,7 +89,7 @@ export default function DoctorDashboard() {
               <div className="stat-icon" style={{ background: 'rgba(245,158,11,0.15)' }}>⭐</div>
               <div>
                 <div className="stat-value">
-                  <StarRating rating={stats?.stats?.rating} />
+                  <StarRating rating={stats?.doctor?.rating ?? 4.5} />
                 </div>
                 <div className="stat-label">Patient Rating</div>
               </div>
@@ -97,7 +97,7 @@ export default function DoctorDashboard() {
             <div className="stat-card">
               <div className="stat-icon" style={{ background: 'rgba(239,68,68,0.15)' }}>🔬</div>
               <div>
-                <div className="stat-value">{stats?.stats?.pendingLabReports ?? 0}</div>
+                <div className="stat-value">{stats?.pendingTests ?? 0}</div>
                 <div className="stat-label">Pending Lab Reports</div>
               </div>
             </div>

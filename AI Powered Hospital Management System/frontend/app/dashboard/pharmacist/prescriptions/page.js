@@ -38,8 +38,8 @@ export default function PrescriptionsPage() {
     const matchStatus = statusFilter === 'all' || p.status === statusFilter;
     const q = searchQuery.toLowerCase();
     const matchSearch = !q ||
-      p.patientId?.user?.name?.toLowerCase().includes(q) ||
-      p.doctorId?.user?.name?.toLowerCase().includes(q) ||
+      p.patientId?.name?.toLowerCase().includes(q) ||
+      p.doctorId?.name?.toLowerCase().includes(q) ||
       p._id?.includes(q) ||
       p.diagnosis?.toLowerCase().includes(q);
     return matchStatus && matchSearch;
@@ -150,13 +150,13 @@ export default function PrescriptionsPage() {
                           style={{ fontWeight: '600' }}
                           onClick={() => setExpandedRow(expandedRow === p._id ? null : p._id)}
                         >
-                          {p.patientId?.user?.name || 'N/A'}
+                          {p.patientId?.name || 'N/A'}
                         </td>
                         <td
                           style={{ color: 'var(--text-secondary)' }}
                           onClick={() => setExpandedRow(expandedRow === p._id ? null : p._id)}
                         >
-                          Dr. {p.doctorId?.user?.name || 'N/A'}
+                          Dr. {p.doctorId?.name || 'N/A'}
                         </td>
                         <td
                           style={{ color: 'var(--text-secondary)', maxWidth: '150px' }}
@@ -212,8 +212,8 @@ export default function PrescriptionsPage() {
                                   📋 Prescription Details
                                 </div>
                                 <div style={{ fontSize: '0.875rem', display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                                  <div><span style={{ color: 'var(--text-muted)' }}>Patient:</span> <strong>{p.patientId?.user?.name || 'N/A'}</strong></div>
-                                  <div><span style={{ color: 'var(--text-muted)' }}>Doctor:</span> <strong>Dr. {p.doctorId?.user?.name || 'N/A'}</strong></div>
+                                  <div><span style={{ color: 'var(--text-muted)' }}>Patient:</span> <strong>{p.patientId?.name || 'N/A'}</strong></div>
+                                  <div><span style={{ color: 'var(--text-muted)' }}>Doctor:</span> <strong>Dr. {p.doctorId?.name || 'N/A'}</strong></div>
                                   <div><span style={{ color: 'var(--text-muted)' }}>Diagnosis:</span> {p.diagnosis || '—'}</div>
                                   <div><span style={{ color: 'var(--text-muted)' }}>Instructions:</span> {p.instructions || '—'}</div>
                                   <div><span style={{ color: 'var(--text-muted)' }}>Date:</span> {p.createdAt ? new Date(p.createdAt).toLocaleDateString('en-IN') : '—'}</div>

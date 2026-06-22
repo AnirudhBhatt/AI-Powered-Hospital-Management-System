@@ -19,6 +19,15 @@ router.get('/', protect, async (req, res) => {
   } catch (e) { res.status(500).json({ success: false, message: e.message }); }
 });
 
+// @route GET /api/v1/doctors/me/profile
+router.get('/me/profile', protect, authorize('doctor'), async (req, res) => {
+  try {
+    const doctor = await Doctor.findOne({ userId: req.user._id });
+    if (!doctor) return res.status(404).json({ success: false, message: 'Doctor profile not found' });
+    res.json({ success: true, data: doctor });
+  } catch (e) { res.status(500).json({ success: false, message: e.message }); }
+});
+
 // @route GET /api/v1/doctors/:id
 router.get('/:id', protect, async (req, res) => {
   try {
@@ -49,14 +58,7 @@ router.put('/:id', protect, authorize('super_admin', 'hospital_admin', 'doctor')
   } catch (e) { res.status(500).json({ success: false, message: e.message }); }
 });
 
-// @route GET /api/v1/doctors/me/profile
-router.get('/me/profile', protect, authorize('doctor'), async (req, res) => {
-  try {
-    const doctor = await Doctor.findOne({ userId: req.user._id });
-    if (!doctor) return res.status(404).json({ success: false, message: 'Doctor profile not found' });
-    res.json({ success: true, data: doctor });
-  } catch (e) { res.status(500).json({ success: false, message: e.message }); }
-});
+
 
 // @route PUT /api/v1/doctors/:id/schedule
 router.put('/:id/schedule', protect, authorize('doctor', 'hospital_admin', 'super_admin'), async (req, res) => {

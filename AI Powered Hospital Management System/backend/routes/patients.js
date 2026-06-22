@@ -28,6 +28,15 @@ router.get('/', protect, authorize(...allStaff, 'patient'), async (req, res) => 
   } catch (e) { res.status(500).json({ success: false, message: e.message }); }
 });
 
+// @route GET /api/v1/patients/me/profile
+router.get('/me/profile', protect, authorize('patient'), async (req, res) => {
+  try {
+    const patient = await Patient.findOne({ userId: req.user._id }).populate('roomId');
+    if (!patient) return res.status(404).json({ success: false, message: 'Patient profile not found' });
+    res.json({ success: true, data: patient });
+  } catch (e) { res.status(500).json({ success: false, message: e.message }); }
+});
+
 // @route GET /api/v1/patients/:id
 router.get('/:id', protect, async (req, res) => {
   try {
@@ -67,13 +76,6 @@ router.patch('/:id/medical-history', protect, authorize('doctor', 'nurse', 'hosp
   } catch (e) { res.status(500).json({ success: false, message: e.message }); }
 });
 
-// @route GET /api/v1/patients/me/profile
-router.get('/me/profile', protect, authorize('patient'), async (req, res) => {
-  try {
-    const patient = await Patient.findOne({ userId: req.user._id }).populate('roomId');
-    if (!patient) return res.status(404).json({ success: false, message: 'Patient profile not found' });
-    res.json({ success: true, data: patient });
-  } catch (e) { res.status(500).json({ success: false, message: e.message }); }
-});
+
 
 module.exports = router;
